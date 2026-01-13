@@ -5,26 +5,32 @@ Welcome to your new Hytale adventure! This repository provides a lightweight and
 ## ✨ Features
 * **Performance First**: Uses `eclipse-temurin:25-jre-alpine` and Ahead-Of-Time (`.aot`) cache for snappy boot times.
 * **Persistence**: All your worlds (`universe/`), logs, and configurations stay safe in your local folder.
-* **Pre-configured**: Comes with a custom `config.json` featuring the MOTD: *"Adventure Time"*.
 * **Secure Auth**: Pre-configured for encrypted credential storage to keep your server identity safe.
 
 ## 🛠️ Prerequisites
 Before you start, make sure you have the following in your project folder (these are ignored by `.gitignore` to keep the repo clean):
 1.  **`Assets.zip`**: The core game assets.
 2.  **`Server/` folder**: Must contain `HytaleServer.jar`, `HytaleServer.aot`, and the `Licenses/` directory.
+You have to download it from https://downloader.hytale.com/hytale-downloader.zip and paste it on the same Dockerfile folder.
 
 ## 🚀 Getting Started
 
 ### 1. Launch the Server
 Simply run the following command to build the image and start the container in the background:
-**podman compose up -d**
+**podman-compose up -d**
+**docker compose up -d**
 
 ### 2. Authentication & Persistence
 To get your server online, you need to link it to your Hytale account:
-1.  **Connect to the console**: Run `podman attach hytale_server`.
+1.  **Connect to the console**: Run `podman attach hytale_server` or `docker attach hytale_server`
 2.  **Login**: Type `/auth login device` and follow the instructions in your browser.
 3.  **Stay Logged In**: Your `config.json` is already set to use `Encrypted` persistence. Run `/auth persistence Encrypted` in the console to save your credentials.
 4.  **Detach**: Press `Ctrl + P` followed by `Ctrl + Q` to exit the console without stopping the server.
+
+### 3. Stop the Server
+You can run on the same folder of the docker-compose.yml file:
+**podman-compose down**
+**docker compose down**
 
 ## ⚙️ Configuration
 You can tweak your server directly through these files:
