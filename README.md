@@ -1,73 +1,41 @@
-🌲 Hytale Server Dockerized
-Welcome! This repository provides a simple, lightweight, and ready-to-use setup to run your own Hytale Dedicated Server using Podman (or Docker).
+# 🌲 Hytale Server Dockerized
 
-We use Alpine Linux and Java 25 to ensure the best performance with the smallest footprint possible. Whether you are hosting a small adventure with friends or testing out mods, this setup has got you covered!
+Welcome to your new Hytale adventure! This repository provides a lightweight and easy-to-use setup to run a dedicated Hytale server using **Podman** (or Docker). It is built on **Alpine Linux** with **Java 25**, ensuring your server is both fast and resource-efficient.
 
-✨ Features
-Lightweight: Built on eclipse-temurin:25-jre-alpine for minimal resource usage.
+## ✨ Features
+* **Performance First**: Uses `eclipse-temurin:25-jre-alpine` and Ahead-Of-Time (`.aot`) cache for snappy boot times.
+* **Persistence**: All your worlds (`universe/`), logs, and configurations stay safe in your local folder.
+* **Pre-configured**: Comes with a custom `config.json` featuring the MOTD: *"Adventure Time"*.
+* **Secure Auth**: Pre-configured for encrypted credential storage to keep your server identity safe.
 
-Fast Boot: Optimized with Ahead-Of-Time (.aot) cache support.
+## 🛠️ Prerequisites
+Before you start, make sure you have the following in your project folder (these are ignored by `.gitignore` to keep the repo clean):
+1.  **`Assets.zip`**: The core game assets.
+2.  **`Server/` folder**: Must contain `HytaleServer.jar`, `HytaleServer.aot`, and the `Licenses/` directory.
 
-Persistent: Your worlds, configs, and logs are saved directly in your folder.
+## 🚀 Getting Started
 
-Secure: Ready for encrypted authentication persistence.
+### 1. Launch the Server
+Simply run the following command to build the image and start the container in the background:
+**podman compose up -d**
 
-🛠️ Prerequisites
-Before starting, make sure you have:
+### 2. Authentication & Persistence
+To get your server online, you need to link it to your Hytale account:
+1.  **Connect to the console**: Run `podman attach hytale_server`.
+2.  **Login**: Type `/auth login device` and follow the instructions in your browser.
+3.  **Stay Logged In**: Your `config.json` is already set to use `Encrypted` persistence. Run `/auth persistence Encrypted` in the console to save your credentials.
+4.  **Detach**: Press `Ctrl + P` followed by `Ctrl + Q` to exit the console without stopping the server.
 
-    Podman and Podman-compose installed (Docker works too!).
+## ⚙️ Configuration
+You can tweak your server directly through these files:
+* **`docker-compose.yml`**: Modify the `RAM_MAX` environment variable (currently set to `4G`).
+* **`config.json`**: Change the server name (*"Hytale Server"*), max players (default 10), or game mode.
+* **Network**: The server listens on **UDP port 5520**.
 
-Your Hytale server files. You need to place them in a folder named Server/ in the root of this project:
+## 📂 Internal Structure
+* **`/app`**: Contains the read-only binaries and assets inside the container.
+* **`/data`**: This is where your worlds, logs, and `config.json` are stored for full persistence.
 
-HytaleServer.jar
+## 🤝 Contributing
+Feel free to open an issue or submit a pull request if you have ideas to make this setup even better.
 
-HytaleServer.aot
-
-Licenses/ folder
-
-Your Assets.zip file in the root directory.
-
-🚀 Getting Started
-1. Prepare your files
-Your folder structure should look like this:
-
-Plaintext
-
-.
-├── Dockerfile
-├── docker-compose.yml
-├── Assets.zip
-└── Server/
-    ├── HytaleServer.jar
-    ├── HytaleServer.aot
-    └── Licenses/
-2. Launch the server
-Run the following command to build the image and start the container:
-
-Bash
-
-podman compose up -d
-3. Authenticate your server
-Hytale requires a one-time device authorization. To do this:
-
-Attach to the server console: podman attach hytale_server.
-
-Type /auth login device and follow the instructions in your browser.
-
-Once successful, set up persistence so you don't have to log in again: /auth persistence Encrypted.
-
-To leave the console without stopping the server, press Ctrl + P then Ctrl + Q.
-
-⚙️ Configuration
-You can easily adjust the memory allocated to the server in the docker-compose.yml file:
-
-Default RAM: 4G.
-
-Default Port: 5520 (UDP - QUIC Protocol).
-
-Feel free to edit config.json to change your server name or MOTD (default is "Adventure Time").
-
-🤝 Contributing
-Suggestions and bug reports are more than welcome! Feel free to open an issue or submit a pull request.
-
-Happy adventures in Orbis! 🌍✨
